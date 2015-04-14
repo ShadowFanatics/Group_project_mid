@@ -70,24 +70,24 @@ public class MainActivity extends Activity{
 	}
 	
 	public void iniSemiCircularRadialMenu() {
-		mRegistration = new SemiCircularRadialMenuItem("Registration", getResources().getDrawable(R.drawable.ic_action_camera), "簽到");
-		mRollCall = new SemiCircularRadialMenuItem("RollCall", getResources().getDrawable(R.drawable.ic_action_dislike), "點名");
-		mInfo = new SemiCircularRadialMenuItem("info", getResources().getDrawable(R.drawable.ic_action_info), "Info");
-		mAttendance = new SemiCircularRadialMenuItem("Attendance", getResources().getDrawable(R.drawable.ic_action_refresh), "出席率");
-		mBroadcast = new SemiCircularRadialMenuItem("Broadcast", getResources().getDrawable(R.drawable.ic_action_search), "推播");
+		mRegistration = new SemiCircularRadialMenuItem("Registration", getResources().getDrawable(R.drawable.ic_registration), "簽到");
+		mRollCall = new SemiCircularRadialMenuItem("RollCall", getResources().getDrawable(R.drawable.ic_rollcall), "點名");
+		mInfo = new SemiCircularRadialMenuItem("info", getResources().getDrawable(R.drawable.ic_info), "Info");
+		mAttendance = new SemiCircularRadialMenuItem("Attendance", getResources().getDrawable(R.drawable.ic_attendence), "出席率");
+		mBroadcast = new SemiCircularRadialMenuItem("Broadcast", getResources().getDrawable(R.drawable.ic_broadcast), "推播");
 		
 		mMenu = (SemiCircularRadialMenu) findViewById(R.id.radial_menu);
-		mMenu.addMenuItem(mInfo.getMenuID(), mInfo);//最左
-		mMenu.addMenuItem(mBroadcast.getMenuID(), mBroadcast);//最右
+		mMenu.addMenuItem(mBroadcast.getMenuID(), mBroadcast);//最左
+		mMenu.addMenuItem(mInfo.getMenuID(), mInfo);//最右
 		mMenu.addMenuItem(mRegistration.getMenuID(), mRegistration);//中間
-		mMenu.addMenuItem(mAttendance.getMenuID(), mAttendance);//右2
-		mMenu.addMenuItem(mRollCall.getMenuID(), mRollCall);//左2
+		mMenu.addMenuItem(mRollCall.getMenuID(), mRollCall);//右2
+		mMenu.addMenuItem(mAttendance.getMenuID(), mAttendance);//左2
 		
 	}
 	
-	public void SemiCircularRadialItem_setPressed(){
+	public void SemiCircularRadialItem_setPressed(){//變換Activity在這邊
 		
-		if(isTeacher){
+		if(isTeacher){//老師所有功能都能做
 			//簽到
 			mRegistration.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
 				@Override
@@ -126,10 +126,11 @@ public class MainActivity extends Activity{
 				}
 			});
 		}
-		else{
+		else{//學生只有資訊 出席率 推播
 			//改Icon
-			//mRegistration
-			//mRollCall
+			mRegistration.reset_Drawble(getResources().getDrawable(R.drawable.ic_registration_eneditabled));
+			mRollCall.reset_Drawble(getResources().getDrawable(R.drawable.ic_rollcall_eneditabled));
+			
 			mInfo.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
 				@Override
 				public void onMenuItemPressed() {
