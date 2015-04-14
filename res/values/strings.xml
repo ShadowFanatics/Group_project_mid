@@ -4,5 +4,6 @@
     <string name="app_name">Group_projectMid</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="seat_string">請選擇座位表</string>
 
 </resources>

@@ -41,7 +41,8 @@ public class SemiCircularRadialMenuItem {
 		mPath = new Path();
 		mBounds = new RectF();
 	}
-		
+	
+	
 	/**
 	 * @return the mTextColor
 	 */
