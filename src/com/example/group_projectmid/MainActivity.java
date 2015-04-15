@@ -174,6 +174,7 @@ public class MainActivity extends Activity{
 			mMenu.set_unLocked();
 			logout_button.setEnabled(true);
 			login_button.setEnabled(false);
+			//不符合 show個dialog要求重新輸入？
 			
 			//判斷完學生 老師身份後 選擇註冊和重新修改部分itemIcon
 			SemiCircularRadialItem_setPressed();
@@ -241,22 +242,23 @@ public class MainActivity extends Activity{
             else {
 				if(which == DialogInterface.BUTTON_NEGATIVE){
 					//跳Activity
-					Bundle bundle = new Bundle();
-					Intent intent = new Intent();
+					
 					switch (index) {
-					case 1:
-						
-			    		bundle.putBoolean("isRandom", false);
-			    		intent.putExtras(bundle);
-			    		intent.setClass(MainActivity.this, ScanActivity.class);
-			    		startActivity(intent);
+					case 0:
+						Bundle bundle1 = new Bundle();
+						Intent intent1 = new Intent();
+			    		bundle1.putBoolean("isRandom", false);
+			    		intent1.putExtras(bundle1);
+			    		intent1.setClass(MainActivity.this, ScanActivity.class);
+			    		startActivity(intent1);
 						break;
-					case 2:
-						
-			    		bundle.putBoolean("isRandom", true);
-			    		intent.putExtras(bundle);
-			    		intent.setClass(MainActivity.this, ScanActivity.class);
-			    		startActivity(intent);
+					case 1:
+						Bundle bundle2 = new Bundle();
+						Intent intent2 = new Intent();
+			    		bundle2.putBoolean("isRandom", true);
+			    		intent2.putExtras(bundle2);
+			    		intent2.setClass(MainActivity.this, ScanActivity.class);
+			    		startActivity(intent2);
 						break;	
 
 					default:

@@ -1,6 +1,7 @@
 package com.group.mid;
 
 import com.example.group_projectmid.R;
+
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -11,12 +12,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class SeatActivity extends Activity {
 	
 	private GridView gridView;
+	private ImageButton backButton;
 	private String[] names;
 	private int[] genderID;
 	private String[] studentID;
@@ -45,7 +49,8 @@ public class SeatActivity extends Activity {
 		display_height = displayMetrics.heightPixels;
 		column = 6;
 		
-		
+		backButton = (ImageButton) findViewById(R.id.blackboard);
+		backButton.setOnClickListener(backButtonListener);
 		
 		gridView = (GridView) findViewById(R.id.GridLayout1);
 		gridView.setNumColumns(column);//改行數
@@ -78,4 +83,12 @@ public class SeatActivity extends Activity {
 			studentID[i] = studentList.get(i).getStudentID();
 		}
 	}
+	
+	private Button.OnClickListener backButtonListener = new Button.OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			SeatActivity.this.finish();
+		}
+	};
 }

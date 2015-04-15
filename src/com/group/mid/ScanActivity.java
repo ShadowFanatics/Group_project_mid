@@ -2,8 +2,6 @@ package com.group.mid;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.example.group_projectmid.R;
@@ -11,7 +9,6 @@ import com.example.group_projectmid.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -30,10 +27,10 @@ public class ScanActivity extends Activity
 			0,1,2,3,4,5,6,7
 	};
 	private String[] names = new String[]{
-			"三個字","林岳霖","二字","有四個字","A-lin","Yui","Yuki","Alice"
+			"三個字","林岳霖","inin","余達明","A-lin","Yui","Yuki","Alice"
 	};
 	private String[] studentID = new String[]{
-			"100502529","100502531","100501234","100502345",
+			"100502529","100502531","100502521","100502068",
 			"100503456","100504567","100505678","100506789"
 	};
 	private int[] genderID = new int[]{//男生1女生0
@@ -69,13 +66,26 @@ public class ScanActivity extends Activity
     		String idNumber = resultString.substring(0, resultString.length()-1);
     		result.setText(idNumber);
     		
-    		//將掃描回傳的id值再傳給SeatActivity
-    		Bundle bundle = new Bundle();
-    		bundle.putString("id", idNumber);
-    		Intent seatIntent = new Intent();
-    		seatIntent.setClass(ScanActivity.this, SeatActivity.class);
-    		seatIntent.putExtras(bundle);
-    		startActivity(seatIntent);
+    		boolean isFound = false;
+    		for (int i = 0; i < studentID.length; i++) {
+				if (idNumber.equals(studentID[i])) {
+					isFound = true;
+					break;
+				}
+			}
+    		
+    		if (isFound) {
+    			//將掃描回傳的id值再傳給SeatActivity
+        		Bundle bundle = new Bundle();
+        		bundle.putString("id", idNumber);
+        		Intent seatIntent = new Intent();
+        		seatIntent.setClass(ScanActivity.this, SeatActivity.class);
+        		seatIntent.putExtras(bundle);
+        		startActivity(seatIntent);
+			}
+    		else {
+    			result.setText("你沒有修這堂課");
+			}
     	}
     	else{
     	    Toast toast = Toast.makeText(getApplicationContext(), 
