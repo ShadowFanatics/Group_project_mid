@@ -7,10 +7,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="17"
         android:targetSdkVersion="17" />
 
     <application
+        android:name="com.group.mid.GlobalVariable"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -24,10 +25,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".pushBoardActivity" >
         </activity>
 
         <service android:name=".checkService" />
+
+        <activity
+            android:name="com.group.mid.ScanActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name="com.group.mid.SeatActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name="com.example.chart.ChartActivity"
+            android:label="@string/title_activity_chart" >
+        </activity>
+        <activity
+            android:name="com.example.chart.TableActivity"
+            android:label="@string/title_activity_table" >
+        </activity>
+
     </application>
 
 </manifest>

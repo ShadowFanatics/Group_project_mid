@@ -26,7 +26,10 @@ public class SemiCircularRadialMenu extends View {
 	private boolean isMenuVisible = false;	
 	private boolean isMenuTogglePressed = false;	
 	private boolean isMenuItemPressed = false;	
-	private String mPressedMenuItemID = null;	
+	private String mPressedMenuItemID = null;
+	//
+	private boolean Locked = true;
+	//
 	private int mDiameter = 0;	
 	private float mRadius = 0.0f;	
 	private int mStartAngle = 0;		
@@ -107,6 +110,7 @@ public class SemiCircularRadialMenu extends View {
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		if(!isLocked()){
 		int x = (int) event.getX();
 		int y = (int) event.getY();
 		
@@ -157,7 +161,10 @@ public class SemiCircularRadialMenu extends View {
 			}
 			break;
 		}
-		
+		}
+		else {
+			return false;
+		}
 		return true;
 	}
 	
@@ -474,6 +481,24 @@ public class SemiCircularRadialMenu extends View {
 	public void setOpenButtonScaleFactor(int mOpenButtonScaleFactor) {
 		this.mOpenButtonScaleFactor = mOpenButtonScaleFactor;
 		invalidate();
+	}
+	
+	public boolean isLocked() {
+		return Locked;
+	}
+	
+	public void set_unLocked() {
+		Locked = false;
+	}
+	
+	public void set_Locked() {
+		Locked = true;
+	}
+	
+	public boolean isOpened(){
+		if(centerMenuText.equals("Open"))
+			return false;
+		else return true;
 	}
 	
 }
