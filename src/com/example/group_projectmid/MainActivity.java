@@ -227,7 +227,7 @@ public class MainActivity extends Activity {
 	
 	private void showDialog() {	
 		String[] seat_kind = new String[]{"一般座位表","亂數座位表"}; 	
-		123.Builder MyAlertDialog = new AlertDialog.Builder(this);
+		AlertDialog.Builder MyAlertDialog = new AlertDialog.Builder(this);
 		MyAlertDialog.setTitle(R.string.seat_string);
 		MyAlertDialog.setIcon(android.R.drawable.ic_dialog_info);
 		MyAlertDialog.setSingleChoiceItems(seat_kind, 0, seat_Listener);
