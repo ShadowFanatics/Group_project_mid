@@ -1,6 +1,9 @@
 package com.example.group_projectmid;
 
+import com.inin.dataType.userData;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,13 +23,16 @@ public class MainActivity extends Activity {
 	}
 
 	private Button button_get_record;
+	private Button button_to_push_activity;
 
 	private void findViews() {
 		button_get_record = (Button) findViewById(R.id.get_record);
+		button_to_push_activity = (Button) findViewById(R.id.to_push_activity);
 	}
 
 	private void setListeners() {
 		button_get_record.setOnClickListener(getDBRecord);
+		button_to_push_activity.setOnClickListener(toPushActivity);
 	}
 
 	private Button.OnClickListener getDBRecord = new Button.OnClickListener() {
@@ -40,7 +46,16 @@ public class MainActivity extends Activity {
 			}
 		}
 	};
-
+	
+	private Button.OnClickListener toPushActivity = new Button.OnClickListener() {
+		public void onClick(View v) {
+			Intent intent = new Intent();
+			intent.setClass(MainActivity.this, pushBoardActivity.class);
+			startActivity(intent); 
+			MainActivity.this.finish();
+		}
+	};
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

@@ -14,5 +14,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="抓資料囉！" />
+    
+    <Button
+        android:id="@+id/to_push_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/get_record"
+        android:text="推播系統" />
 
 </RelativeLayout>

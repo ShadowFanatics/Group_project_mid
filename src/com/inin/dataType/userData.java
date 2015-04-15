@@ -1,4 +1,4 @@
-package com.example.group_projectmid;
+package com.inin.dataType;
 
 public class userData {
 	public int type;
