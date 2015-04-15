@@ -1,5 +1,7 @@
 package com.example.group_projectmid;
 
+import com.example.chart.ChartActivity;
+import com.example.chart.TableActivity;
 import com.group.mid.ScanActivity;
 import com.main.fragment.fragment_login;
 import com.main.fragment.fragment_logout;
@@ -36,7 +38,7 @@ public class MainActivity extends Activity{
 	//調用seat_Listener.getIndex 可以得到座位選擇 0是一般座位 1是亂數座位
 	private ChoiceOnClickListener seat_Listener= new ChoiceOnClickListener(1);
 	////////////////////////////////////////////////////////////////////////////////////////
-	private boolean isTeacher = true;
+	private boolean isTeacher = false;
 	
 	
 	@Override
@@ -82,8 +84,7 @@ public class MainActivity extends Activity{
 		mMenu.addMenuItem(mInfo.getMenuID(), mInfo);
 		mMenu.addMenuItem(mRegistration.getMenuID(), mRegistration);
 		mMenu.addMenuItem(mRollCall.getMenuID(), mRollCall);
-		mMenu.addMenuItem(mAttendance.getMenuID(), mAttendance);
-		
+		mMenu.addMenuItem(mAttendance.getMenuID(), mAttendance);		
 	}
 	
 	public void SemiCircularRadialItem_setPressed(){//變換Activity在這邊
@@ -94,10 +95,10 @@ public class MainActivity extends Activity{
 				@Override
 				public void onMenuItemPressed() {
 					showDialog();
-					//Toast.makeText(MainActivity.this, mRegistration.getText(), Toast.LENGTH_SHORT).show();
 				}
 			});
 			
+			//點名 藍芽activity在這邊開啟
 			mRollCall.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
 				@Override
 				public void onMenuItemPressed() {
@@ -112,18 +113,23 @@ public class MainActivity extends Activity{
 				}
 			});
 			
+			//老師圖表activity在這邊開啟
+			//可能要傳值進去 未加入
 			mAttendance.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
 				@Override
 				public void onMenuItemPressed() {
-					Toast.makeText(MainActivity.this, mAttendance.getText(), Toast.LENGTH_SHORT).show();
+					//Toast.makeText(MainActivity.this, mAttendance.getText(), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, ChartActivity.class);
+					startActivity(intent);
 				}
 			});
 			
+			//老師broadcast activity在這邊開啟
 			mBroadcast.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
 				@Override
 				public void onMenuItemPressed() {
 					Toast.makeText(MainActivity.this, mBroadcast.getText(), Toast.LENGTH_SHORT).show();
-					mMenu.dismissMenu();
 				}
 			});
 		}
@@ -139,10 +145,14 @@ public class MainActivity extends Activity{
 				}
 			});
 			
+			//學生圖表activity在這邊開啟
+			//可能要傳值進去 未加入
 			mAttendance.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
 				@Override
 				public void onMenuItemPressed() {
-					Toast.makeText(MainActivity.this, mAttendance.getText(), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, TableActivity.class);
+					startActivity(intent);
 				}
 			});
 			
@@ -150,7 +160,6 @@ public class MainActivity extends Activity{
 				@Override
 				public void onMenuItemPressed() {
 					Toast.makeText(MainActivity.this, mBroadcast.getText(), Toast.LENGTH_SHORT).show();
-					mMenu.dismissMenu();
 				}
 			});
 		}

@@ -58,29 +58,33 @@ public final class R {
     }
     public static final class id {
         public static final int GridLayout1=0x7f080008;
-        public static final int TextView_logout=0x7f08000b;
-        public static final int action_settings=0x7f08000f;
+        public static final int HorizontalScrollView01=0x7f080009;
+        public static final int ListView01=0x7f08000a;
+        public static final int TextView_logout=0x7f08000d;
+        public static final int action_settings=0x7f080011;
         public static final int blackboard=0x7f080007;
         public static final int button_login=0x7f080002;
         public static final int button_logout=0x7f080003;
         public static final int frameLay=0x7f080001;
-        public static final int imageView1=0x7f08000c;
+        public static final int imageView1=0x7f08000e;
         public static final int main_layout=0x7f080000;
-        public static final int password_login=0x7f08000a;
+        public static final int password_login=0x7f08000c;
         public static final int radial_menu=0x7f080004;
         public static final int result=0x7f080006;
         public static final int scan=0x7f080005;
-        public static final int textView_name=0x7f08000e;
-        public static final int textView_rowcolumn=0x7f08000d;
-        public static final int username_login=0x7f080009;
+        public static final int textView_name=0x7f080010;
+        public static final int textView_rowcolumn=0x7f08000f;
+        public static final int username_login=0x7f08000b;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int activity_scan=0x7f030001;
-        public static final int activity_seat=0x7f030002;
-        public static final int fragment_login=0x7f030003;
-        public static final int fragment_logout=0x7f030004;
-        public static final int grid_item=0x7f030005;
+        public static final int activity_chart=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int activity_scan=0x7f030002;
+        public static final int activity_seat=0x7f030003;
+        public static final int activity_table=0x7f030004;
+        public static final int fragment_login=0x7f030005;
+        public static final int fragment_logout=0x7f030006;
+        public static final int grid_item=0x7f030007;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -90,6 +94,8 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int hello_world=0x7f050001;
         public static final int seat_string=0x7f050003;
+        public static final int title_activity_chart=0x7f050004;
+        public static final int title_activity_table=0x7f050005;
     }
     public static final class style {
         /** 
