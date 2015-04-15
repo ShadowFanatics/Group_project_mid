@@ -38,7 +38,7 @@ public class MainActivity extends Activity{
 	//調用seat_Listener.getIndex 可以得到座位選擇 0是一般座位 1是亂數座位
 	private ChoiceOnClickListener seat_Listener= new ChoiceOnClickListener(1);
 	////////////////////////////////////////////////////////////////////////////////////////
-	private boolean isTeacher = false;
+	private boolean isTeacher = true;
 	
 	
 	@Override

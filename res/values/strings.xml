@@ -5,7 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="seat_string">請選擇座位表</string>
-    <string name="title_activity_chart">ChartActivity</string>
-    <string name="title_activity_table">TableActivity</string>
+    <string name="title_activity_chart">全體學生出席數表</string>
+    <string name="title_activity_table">學生出席日表</string>
 
 </resources>
