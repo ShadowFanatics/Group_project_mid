@@ -1,7 +1,10 @@
 package com.example.group_projectmid;
 
-import com.inin.dataType.userData;
 
+import com.inin.dataType.userData;
+import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenu;
+import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenuItem;
+import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenuItem.OnSemiCircularRadialMenuPressed;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,68 +13,69 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 
 public class MainActivity extends Activity {
-
+	
+	private SemiCircularRadialMenu mMenu;
+	private SemiCircularRadialMenuItem mContact, mDislike, mInfo, mRefresh, mSearch;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		findViews();
-		setListeners();
-	}
-
-	private Button button_get_record;
-	private Button button_to_push_activity;
-
-	private void findViews() {
-		button_get_record = (Button) findViewById(R.id.get_record);
-		button_to_push_activity = (Button) findViewById(R.id.to_push_activity);
-	}
-
-	private void setListeners() {
-		button_get_record.setOnClickListener(getDBRecord);
-		button_to_push_activity.setOnClickListener(toPushActivity);
-	}
-
-	private Button.OnClickListener getDBRecord = new Button.OnClickListener() {
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			userData user = new userData();
-			int userType = DataBaseConnector.logIn("inin", "1234");
-			Log.e("type_tag", String.valueOf(userType));
-			if (userType != -1) {
-				user = DataBaseConnector.getUserData();
+		
+		mContact = new SemiCircularRadialMenuItem("Contact", getResources().getDrawable(R.drawable.ic_action_camera), "簽到");
+		mDislike = new SemiCircularRadialMenuItem("Dislike", getResources().getDrawable(R.drawable.ic_action_dislike), "點名");
+		mInfo = new SemiCircularRadialMenuItem("info", getResources().getDrawable(R.drawable.ic_action_info), "Info");
+		mRefresh = new SemiCircularRadialMenuItem("Refresh", getResources().getDrawable(R.drawable.ic_action_refresh), "出席率");
+		mSearch = new SemiCircularRadialMenuItem("Search", getResources().getDrawable(R.drawable.ic_action_search), "推播");
+		
+		mMenu = (SemiCircularRadialMenu) findViewById(R.id.radial_menu);
+		mMenu.addMenuItem(mInfo.getMenuID(), mInfo);//最左
+		mMenu.addMenuItem(mSearch.getMenuID(), mSearch);//最右
+		mMenu.addMenuItem(mContact.getMenuID(), mContact);//中間
+		mMenu.addMenuItem(mRefresh.getMenuID(), mRefresh);//右2
+		mMenu.addMenuItem(mDislike.getMenuID(), mDislike);//左2
+		
+		
+		
+		/*mContact.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+			@Override
+			public void onMenuItemPressed() {
+				Toast.makeText(MainActivity.this, mContact.getText(), Toast.LENGTH_SHORT).show();
 			}
-		}
-	};
-	
-	private Button.OnClickListener toPushActivity = new Button.OnClickListener() {
-		public void onClick(View v) {
-			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, pushBoardActivity.class);
-			startActivity(intent); 
-			MainActivity.this.finish();
-		}
-	};
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		});
+		
+		mDislike.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+			@Override
+			public void onMenuItemPressed() {
+				Toast.makeText(MainActivity.this, mDislike.getText(), Toast.LENGTH_SHORT).show();
+			}
+		});
+		
+		mInfo.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+			@Override
+			public void onMenuItemPressed() {
+				Toast.makeText(MainActivity.this, mInfo.getText(), Toast.LENGTH_SHORT).show();
+			}
+		});
+		
+		mRefresh.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+			@Override
+			public void onMenuItemPressed() {
+				Toast.makeText(MainActivity.this, mRefresh.getText(), Toast.LENGTH_SHORT).show();
+			}
+		});
+		
+		mSearch.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+			@Override
+			public void onMenuItemPressed() {
+				Toast.makeText(MainActivity.this, mSearch.getText(), Toast.LENGTH_SHORT).show();
+				mMenu.dismissMenu();
+			}
+		});*/
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 }
