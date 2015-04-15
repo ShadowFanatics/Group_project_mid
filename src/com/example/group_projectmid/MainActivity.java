@@ -1,5 +1,6 @@
 package com.example.group_projectmid;
 
+import com.group.mid.ScanActivity;
 import com.main.fragment.fragment_login;
 import com.main.fragment.fragment_logout;
 import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenu;
@@ -77,11 +78,11 @@ public class MainActivity extends Activity{
 		mBroadcast = new SemiCircularRadialMenuItem("Broadcast", getResources().getDrawable(R.drawable.ic_broadcast), "推播");
 		
 		mMenu = (SemiCircularRadialMenu) findViewById(R.id.radial_menu);
-		mMenu.addMenuItem(mBroadcast.getMenuID(), mBroadcast);//最左
-		mMenu.addMenuItem(mInfo.getMenuID(), mInfo);//最右
-		mMenu.addMenuItem(mRegistration.getMenuID(), mRegistration);//中間
-		mMenu.addMenuItem(mRollCall.getMenuID(), mRollCall);//右2
-		mMenu.addMenuItem(mAttendance.getMenuID(), mAttendance);//左2
+		mMenu.addMenuItem(mBroadcast.getMenuID(), mBroadcast);
+		mMenu.addMenuItem(mInfo.getMenuID(), mInfo);
+		mMenu.addMenuItem(mRegistration.getMenuID(), mRegistration);
+		mMenu.addMenuItem(mRollCall.getMenuID(), mRollCall);
+		mMenu.addMenuItem(mAttendance.getMenuID(), mAttendance);
 		
 	}
 	
@@ -222,24 +223,46 @@ public class MainActivity extends Activity{
 	}
 	
 	private class ChoiceOnClickListener implements DialogInterface.OnClickListener {  
-		  
+		//選擇亂數或一般座位DialogListener
+		
         private int index;//選擇0是一般座位 1是亂數座位
         public ChoiceOnClickListener(int index){
         	this.index = index;
         }
+        
         @Override  
         public void onClick(DialogInterface dialogInterface, int which) {  
             
+        	
+        	
             if(which >= 0){
             	index = which;
             }
             else {
 				if(which == DialogInterface.BUTTON_NEGATIVE){
-					//進入掃描 跳Activity
-					//Toast.makeText(MainActivity.this, "你选择的id为" + which, Toast.LENGTH_SHORT).show();
-					//Intent intent = new Intent();
-					//intent.setClass(GameActivity.this, Ranking.class);
-					//startActivityForResult(intent, RANK_REQUEST);
+					//跳Activity
+					Bundle bundle = new Bundle();
+					Intent intent = new Intent();
+					switch (index) {
+					case 1:
+						
+			    		bundle.putBoolean("isRandom", false);
+			    		intent.putExtras(bundle);
+			    		intent.setClass(MainActivity.this, ScanActivity.class);
+			    		startActivity(intent);
+						break;
+					case 2:
+						
+			    		bundle.putBoolean("isRandom", true);
+			    		intent.putExtras(bundle);
+			    		intent.setClass(MainActivity.this, ScanActivity.class);
+			    		startActivity(intent);
+						break;	
+
+					default:
+						Toast.makeText(MainActivity.this, "Impossible!", Toast.LENGTH_SHORT).show();
+						break;
+					}
 					
 				}
 				else if(which == DialogInterface.BUTTON_POSITIVE){
