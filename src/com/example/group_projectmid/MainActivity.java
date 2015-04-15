@@ -2,6 +2,7 @@ package com.example.group_projectmid;
 
 import com.example.chart.ChartActivity;
 import com.example.chart.TableActivity;
+import com.example.group_projectmid.R.layout;
 import com.group.mid.ScanActivity;
 import com.main.fragment.fragment_login;
 import com.main.fragment.fragment_logout;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ public class MainActivity extends Activity{
 	private SemiCircularRadialMenu mMenu;
 	private SemiCircularRadialMenuItem mRegistration, mRollCall, mInfo, mAttendance, mBroadcast;
 	private Button login_button, logout_button;
+	private LinearLayout layout;
 	private fragment_login frLogin;
 	private fragment_logout frLogout;
 	private String username,password;
@@ -45,8 +48,8 @@ public class MainActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		
+		layout = (LinearLayout) findViewById(R.id.main_layout);
+		layout.setBackground(this.getResources().getDrawable(R.drawable.background));
 		
 		
 
