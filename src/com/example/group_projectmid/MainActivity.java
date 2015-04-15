@@ -1,34 +1,39 @@
 package com.example.group_projectmid;
 
+
+
+import com.inin.dataType.userData;
+
 import com.example.chart.ChartActivity;
 import com.example.chart.TableActivity;
 import com.example.group_projectmid.R.layout;
 import com.group.mid.ScanActivity;
 import com.main.fragment.fragment_login;
 import com.main.fragment.fragment_logout;
+
 import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenu;
 import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenuItem;
 import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenuItem.OnSemiCircularRadialMenuPressed;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity{
+
+public class MainActivity extends Activity {
+
 	
 	private SemiCircularRadialMenu mMenu;
 	private SemiCircularRadialMenuItem mRegistration, mRollCall, mInfo, mAttendance, mBroadcast;
@@ -142,7 +147,7 @@ public class MainActivity extends Activity{
 			mRollCall.reset_Drawble(getResources().getDrawable(R.drawable.ic_rollcall_eneditabled));
 			
 			mInfo.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
-				@Override
+				
 				public void onMenuItemPressed() {
 					Toast.makeText(MainActivity.this, mInfo.getText(), Toast.LENGTH_SHORT).show();
 				}
@@ -167,6 +172,8 @@ public class MainActivity extends Activity{
 			});
 		}
 	}
+	
+
 	public boolean isTeacher(){
 		return isTeacher;
 	}

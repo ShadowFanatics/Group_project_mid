@@ -55,17 +55,28 @@ public final class R {
         public static final int HorizontalScrollView01=0x7f080009;
         public static final int ListView01=0x7f08000a;
         public static final int TextView_logout=0x7f08000d;
-        public static final int action_settings=0x7f080011;
+        public static final int action_settings=0x7f08001c;
         public static final int blackboard=0x7f080007;
         public static final int button_login=0x7f080002;
         public static final int button_logout=0x7f080003;
         public static final int frameLay=0x7f080001;
         public static final int imageView1=0x7f08000e;
+        public static final int linearLayout1=0x7f080011;
+        public static final int linearLayout2=0x7f080015;
+        public static final int loadView=0x7f080018;
         public static final int main_layout=0x7f080000;
         public static final int password_login=0x7f08000c;
+        public static final int postDate=0x7f080017;
+        public static final int postMessage=0x7f080016;
+        public static final int postTeacher=0x7f080013;
+        public static final int postTime=0x7f080014;
+        public static final int postTitle=0x7f080012;
+        public static final int post_list=0x7f08001b;
         public static final int radial_menu=0x7f080004;
+        public static final int refreshView=0x7f08001a;
         public static final int result=0x7f080006;
         public static final int scan=0x7f080005;
+        public static final int test=0x7f080019;
         public static final int textView_name=0x7f080010;
         public static final int textView_rowcolumn=0x7f08000f;
         public static final int username_login=0x7f08000b;
@@ -79,6 +90,10 @@ public final class R {
         public static final int fragment_login=0x7f030005;
         public static final int fragment_logout=0x7f030006;
         public static final int grid_item=0x7f030007;
+        public static final int pushboard_item=0x7f030008;
+        public static final int pushboard_load=0x7f030009;
+        public static final int pushboard_refresh=0x7f03000a;
+        public static final int pushboard_student=0x7f03000b;
     }
     public static final class menu {
         public static final int main=0x7f070000;
