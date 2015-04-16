@@ -8,7 +8,10 @@
         android:id="@+id/post_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scrollbars="vertical"
-        android:scrollbarAlwaysDrawVerticalTrack="true" />
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbars="vertical" />
+
+    <TextVeiw>
+    </TextVeiw>
 
 </LinearLayout>

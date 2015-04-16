@@ -55,7 +55,7 @@ public final class R {
         public static final int HorizontalScrollView01=0x7f080009;
         public static final int ListView01=0x7f08000a;
         public static final int TextView_logout=0x7f08000d;
-        public static final int action_settings=0x7f08001c;
+        public static final int action_settings=0x7f08001e;
         public static final int blackboard=0x7f080007;
         public static final int button_login=0x7f080002;
         public static final int button_logout=0x7f080003;
@@ -76,6 +76,8 @@ public final class R {
         public static final int refreshView=0x7f08001a;
         public static final int result=0x7f080006;
         public static final int scan=0x7f080005;
+        public static final int teacherPost=0x7f08001d;
+        public static final int teacherView=0x7f08001c;
         public static final int test=0x7f080019;
         public static final int textView_name=0x7f080010;
         public static final int textView_rowcolumn=0x7f08000f;
@@ -92,8 +94,10 @@ public final class R {
         public static final int grid_item=0x7f030007;
         public static final int pushboard_item=0x7f030008;
         public static final int pushboard_load=0x7f030009;
-        public static final int pushboard_refresh=0x7f03000a;
-        public static final int pushboard_student=0x7f03000b;
+        public static final int pushboard_post=0x7f03000a;
+        public static final int pushboard_refresh=0x7f03000b;
+        public static final int pushboard_student=0x7f03000c;
+        public static final int pushboard_teacher=0x7f03000d;
     }
     public static final class menu {
         public static final int main=0x7f070000;

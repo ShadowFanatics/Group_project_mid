@@ -83,6 +83,19 @@ public class DataBaseConnector {
 
 	public static postDataFormat[] getPosts() {
 		postDataFormat value[] = null;
+		if ( DeBugMode ) {
+			value = new postDataFormat[5];
+			for ( int i = 0; i < 5; i++ ) {
+				value[i] = new postDataFormat();
+	            value[i].id = i;
+	            value[i].title = "標題";
+	            value[i].message = "交作業喔!";
+	            value[i].teacher = "陳國棟";
+	            value[i].time = "2015-04-12 00:00:00";
+	            value[i].date = "2015-04-14 00:00:00";
+			}
+			return value;
+		}
 		String result = "";
 		try {
 			HttpClient httpClient = new DefaultHttpClient();
@@ -174,16 +187,15 @@ public class DataBaseConnector {
 		} catch (JSONException e) {
 			Log.e("JSONObject", e.toString());
 		}
-
 		return value;
 	}
 	
 	public static userData getUserData() {
-		if (DeBugMode) {
+		/*if (DeBugMode) {
 			user.ID = "100502521";
 			user.name = "陳映亦";
-			user.type = 0;
-		}
+			user.type = 1;
+		}*/
 		return user;
 	}
 
