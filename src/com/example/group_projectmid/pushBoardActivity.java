@@ -80,7 +80,7 @@ public class pushBoardActivity extends ListActivity {
 		head = LayoutInflater.from(this).inflate(R.layout.pushboard_refresh,
 				null);
 		foot = LayoutInflater.from(this).inflate(R.layout.pushboard_load, null);
-		Log.e("Height", String.valueOf(metrics.heightPixels));
+		//Log.e("Height", String.valueOf(metrics.heightPixels));
 		foot.setMinimumHeight(metrics.heightPixels);
 		// 將head.xml轉為view
 		// TextView headtext = (TextView) head.findViewById(R.id.load);
@@ -89,7 +89,7 @@ public class pushBoardActivity extends ListActivity {
 		foot.setVisibility(View.GONE);
 		
 		if (DataBaseConnector.getUserData().type == 1) {
-			Log.e("teacher","true");
+			//Log.e("teacher","true");
 			teacher = LayoutInflater.from(this).inflate(
 					R.layout.pushboard_teacher, null);
 			Button postButton = (Button) teacher.findViewById(R.id.teacherPost);
@@ -131,9 +131,9 @@ public class pushBoardActivity extends ListActivity {
 				int visibleItemCount, int totalItemCount) {
 			shouldLoadData = false;
 			shouldRefresh = false;
-			Log.e("firstVisibleItem", String.valueOf(firstVisibleItem));
-			Log.e("visibleItemCount", String.valueOf(visibleItemCount));
-			Log.e("totalItemCount", String.valueOf(totalItemCount));
+			//Log.e("firstVisibleItem", String.valueOf(firstVisibleItem));
+			//Log.e("visibleItemCount", String.valueOf(visibleItemCount));
+			//Log.e("totalItemCount", String.valueOf(totalItemCount));
 			if (firstVisibleItem == 0) {// 拉到頂時
 				shouldRefresh = true;
 			} else if (firstVisibleItem + visibleItemCount == totalItemCount) {
@@ -164,7 +164,7 @@ public class pushBoardActivity extends ListActivity {
 	};
 
 	private void Refresh() {
-		Log.e("refresh", "yes");
+		//Log.e("refresh", "yes");
 		postDataFormat messages[] = DataBaseConnector.getPosts();
 		if (messages.length > localLastId) {
 			postDataDAO localData = new postDataDAO(getApplicationContext());

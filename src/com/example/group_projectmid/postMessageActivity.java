@@ -35,6 +35,7 @@ public class postMessageActivity extends Activity {
 				Toast.makeText(postMessageActivity.this, "請輸入期限", Toast.LENGTH_SHORT).show();
 			}
 			else {
+				DataBaseConnector.insertMessage(title,message,date);
 				Intent intent = new Intent();
 				intent.setClass(postMessageActivity.this, pushBoardActivity.class);
 				startActivity(intent);

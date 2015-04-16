@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import com.group.mid.StudentData;
 import com.inin.dataType.postDataFormat;
+import com.inin.dataType.rollCallFormat;
 import com.inin.dataType.userData;
 
 import android.util.Log;
@@ -28,7 +29,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class DataBaseConnector {
-	private static boolean DeBugMode = true;
+	private static boolean DeBugMode = false;
 	private static userData user = new userData();
 
 	public static int logIn(String account, String password) {
@@ -67,8 +68,10 @@ public class DataBaseConnector {
 			} catch (Exception e) {
 				Log.e("log_tag_DB", e.toString());
 			}
+			Log.e("log_tag_DB", result);
 			try {
 				JSONObject jsonData = new JSONObject(result);
+				user.index = jsonData.getInt("id");
 				user.name = jsonData.getString("name");
 				user.ID = jsonData.getString("school_ID");
 				user.type = jsonData.getInt("type");
@@ -121,7 +124,7 @@ public class DataBaseConnector {
 		} catch (Exception e) {
 			Log.e("log_tag_DB", e.toString());
 		}
-		Log.e("log_tag_DB", result);
+		//Log.e("log_tag_DB", result);
 		try {
 			JSONArray jsonArray = new JSONArray(result);
 			value = new postDataFormat[jsonArray.length()];
@@ -191,6 +194,9 @@ public class DataBaseConnector {
 	}
 	
 	public static void insertMessage(String title, String message, String date) {
+		if ( DeBugMode ) {
+			return;
+		}
 		String result = "";
 		try {
 			HttpClient httpClient = new DefaultHttpClient();
@@ -200,6 +206,95 @@ public class DataBaseConnector {
 			params.add(new BasicNameValuePair("title", title));
 			params.add(new BasicNameValuePair("message", message));
 			params.add(new BasicNameValuePair("date", date));
+			httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+			HttpResponse httpResponse = httpClient.execute(httpPost);
+
+			HttpEntity httpEntity = httpResponse.getEntity();
+			InputStream inputStream = httpEntity.getContent();
+
+			BufferedReader bufReader = new BufferedReader(
+					new InputStreamReader(inputStream, "utf-8"), 8);
+			StringBuilder builder = new StringBuilder();
+			String line = null;
+			while ((line = bufReader.readLine()) != null) {
+				builder.append(line + "\n");
+			}
+			inputStream.close();
+			result = builder.toString();
+		} catch (Exception e) {
+			Log.e("log_tag_DB", e.toString());
+		}
+		//Log.e("log_tag_DB", result);
+	}
+
+	public static rollCallFormat[] getAttend() {
+		rollCallFormat value[] = null;
+		String result = "";
+		if (DeBugMode) {
+			
+			return value;
+		} 
+		try {
+			HttpClient httpClient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(
+					"http://10.0.2.2/android_sql/getSeat.php");
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("classId", String.valueOf(1)));
+			params.add(new BasicNameValuePair("studentId", String.valueOf(user.index)));
+			httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+			HttpResponse httpResponse = httpClient.execute(httpPost);
+
+			HttpEntity httpEntity = httpResponse.getEntity();
+			InputStream inputStream = httpEntity.getContent();
+
+			BufferedReader bufReader = new BufferedReader(
+					new InputStreamReader(inputStream, "utf-8"), 8);
+			StringBuilder builder = new StringBuilder();
+			String line = null;
+			while ((line = bufReader.readLine()) != null) {
+				builder.append(line + "\n");
+			}
+			inputStream.close();
+			result = builder.toString();
+		} catch (Exception e) {
+			Log.e("log_tag_DB", e.toString());
+		}
+		
+		try {
+			JSONArray jsonArray = new JSONArray(result);
+			value = new rollCallFormat[jsonArray.length()];
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonData = jsonArray.getJSONObject(i);
+                value[i] = new rollCallFormat();
+                value[i].time = jsonData.getString("time");
+                value[i].type = jsonData.getInt("type");
+                value[i].isCome = ( jsonData.getInt("isCome") == 1 );
+            }
+		} catch (JSONException e) {
+			Log.e("JSONObject", e.toString());
+		}
+		return value;
+	}
+	
+	public static void insertAttend(rollCallFormat input) {
+		if ( DeBugMode ) {
+			return;
+		}
+		String result = "";
+		try {
+			HttpClient httpClient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(
+					"http://10.0.2.2/android_sql/insertAttend.php");
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("time", input.time));
+			int isCome = 0;
+			if ( input.isCome ) {
+				isCome = 1;
+			}
+			params.add(new BasicNameValuePair("isCome", String.valueOf(isCome)));
+			params.add(new BasicNameValuePair("type", String.valueOf(input.type)));
+			params.add(new BasicNameValuePair("classId", String.valueOf(1)));
+			params.add(new BasicNameValuePair("studentId", String.valueOf(user.index)));
 			httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
 			HttpResponse httpResponse = httpClient.execute(httpPost);
 

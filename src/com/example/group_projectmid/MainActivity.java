@@ -19,6 +19,7 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -55,7 +56,12 @@ public class MainActivity extends Activity {
 		layout = (LinearLayout) findViewById(R.id.main_layout);
 		layout.setBackground(this.getResources().getDrawable(R.drawable.background));
 		
-		
+		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+			.detectDiskReads().detectDiskWrites().detectNetwork()
+			.penaltyLog().build());
+		StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+			.detectLeakedSqlLiteObjects().penaltyLog().penaltyDeath()
+			.build());
 
 		
 		
