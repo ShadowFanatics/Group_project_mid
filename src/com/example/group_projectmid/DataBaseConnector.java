@@ -190,6 +190,36 @@ public class DataBaseConnector {
 		return value;
 	}
 	
+	public static void insertMessage(String title, String message, String date) {
+		String result = "";
+		try {
+			HttpClient httpClient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(
+					"http://10.0.2.2/android_sql/insertMessage.php");
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("title", title));
+			params.add(new BasicNameValuePair("message", message));
+			params.add(new BasicNameValuePair("date", date));
+			httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+			HttpResponse httpResponse = httpClient.execute(httpPost);
+
+			HttpEntity httpEntity = httpResponse.getEntity();
+			InputStream inputStream = httpEntity.getContent();
+
+			BufferedReader bufReader = new BufferedReader(
+					new InputStreamReader(inputStream, "utf-8"), 8);
+			StringBuilder builder = new StringBuilder();
+			String line = null;
+			while ((line = bufReader.readLine()) != null) {
+				builder.append(line + "\n");
+			}
+			inputStream.close();
+			result = builder.toString();
+		} catch (Exception e) {
+			Log.e("log_tag_DB", e.toString());
+		}
+	}
+	
 	public static userData getUserData() {
 		/*if (DeBugMode) {
 			user.ID = "100502521";

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.example.chart.ChartActivity;
 import com.inin.sqlite.MyDBHelper;
 import com.inin.sqlite.postDataDAO;
 import com.inin.UIunit.postItemRow;
@@ -190,7 +191,9 @@ public class pushBoardActivity extends ListActivity {
 	private OnClickListener postMessage = new OnClickListener() {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Log.e("CLICK","CCCC");
+			Intent intent = new Intent();
+			intent.setClass(pushBoardActivity.this, postMessageActivity.class);
+			startActivity(intent);
 		}
 	};
 	
