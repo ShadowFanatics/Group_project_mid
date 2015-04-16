@@ -174,16 +174,15 @@ public class DataBaseConnector {
 		} catch (JSONException e) {
 			Log.e("JSONObject", e.toString());
 		}
-
 		return value;
 	}
 	
 	public static userData getUserData() {
-		if (DeBugMode) {
+		/*if (DeBugMode) {
 			user.ID = "100502521";
 			user.name = "陳映亦";
-			user.type = 0;
-		}
+			user.type = 1;
+		}*/
 		return user;
 	}
 

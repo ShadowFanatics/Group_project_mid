@@ -26,15 +26,15 @@ public class TableActivity extends Activity {
 		lv = (ListView) this.findViewById(R.id.ListView01);  
         ArrayList<TableRow> table = new ArrayList<TableRow>();  
         TableCell[] titles = new TableCell[5]; // 每行5個單元  
-        int width = this.getWindowManager().getDefaultDisplay().getWidth()/titles.length;  
+        int width = this.getWindowManager().getDefaultDisplay().getWidth()/3;  
         // 定义标题  
-        for (int i = 0; i < titles.length; i++) {  
+        for (int i = 0; i < 2; i++) {  
             titles[i] = new TableCell("標題" + String.valueOf(i),   
-                                    width + 8 * i,  
+                                    width + 8 * i,
                                     LayoutParams.FILL_PARENT,   
                                     TableCell.STRING);
 	}
-        table.add(new TableRow(titles));  
+        table.add(new TableRow(titles));
         // 每行的數據  
         TableCell[] cells = new TableCell[5]; // 每行5個單元  
         for (int i = 0; i < cells.length - 1; i++) {  
