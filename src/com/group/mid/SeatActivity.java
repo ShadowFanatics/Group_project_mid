@@ -81,6 +81,7 @@ public class SeatActivity extends Activity {
 			names[i] = studentList.get(i).getName();
 			genderID[i] = studentList.get(i).getGenderId();
 			studentID[i] = studentList.get(i).getStudentID();
+			
 		}
 	}
 	

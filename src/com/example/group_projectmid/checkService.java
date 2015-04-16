@@ -50,7 +50,7 @@ public class checkService extends Service {
 	private Runnable showTime = new Runnable() {
 		public void run() {
 			// log目前時間
-			Log.e("time:", new Date().toString());
+			//Log.e("time:", new Date().toString());
 			handler.postDelayed(this, 1000);
 
 			postDataFormat messages[] = DataBaseConnector.getPosts();
