@@ -3,29 +3,31 @@ package com.example.group_projectmid;
 
 
 import com.inin.dataType.userData;
-
 import com.example.chart.ChartActivity;
 import com.example.chart.TableActivity;
+import com.example.group_projectmid.R.layout;
 import com.group.mid.ScanActivity;
 import com.main.fragment.fragment_login;
 import com.main.fragment.fragment_logout;
-
 import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenu;
 import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenuItem;
 import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenuItem.OnSemiCircularRadialMenuPressed;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -35,6 +37,7 @@ public class MainActivity extends Activity {
 	private SemiCircularRadialMenu mMenu;
 	private SemiCircularRadialMenuItem mRegistration, mRollCall, mInfo, mAttendance, mBroadcast;
 	private Button login_button, logout_button;
+	private LinearLayout layout;
 	private fragment_login frLogin;
 	private fragment_logout frLogout;
 	private String username,password;
@@ -49,8 +52,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		
+		layout = (LinearLayout) findViewById(R.id.main_layout);
+		layout.setBackground(this.getResources().getDrawable(R.drawable.background));
 		
 		
 
@@ -98,7 +101,7 @@ public class MainActivity extends Activity {
 			mRegistration.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
 				@Override
 				public void onMenuItemPressed() {
-					showDialog();
+					showSeatingChartDialog();
 				}
 			});
 			
@@ -146,7 +149,7 @@ public class MainActivity extends Activity {
 			mRollCall.reset_Drawble(getResources().getDrawable(R.drawable.ic_rollcall_eneditabled));
 			
 			mInfo.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
-				@Override
+				
 				public void onMenuItemPressed() {
 					Toast.makeText(MainActivity.this, mInfo.getText(), Toast.LENGTH_SHORT).show();
 				}
@@ -174,6 +177,8 @@ public class MainActivity extends Activity {
 			});
 		}
 	}
+	
+
 	public boolean isTeacher(){
 		return isTeacher;
 	}
@@ -195,6 +200,9 @@ public class MainActivity extends Activity {
 			}
 			else {
 				//不符合 show個dialog要求重新輸入？
+				showGetOutDialog();
+				login_username.setText("");
+				login_password.setText("");		
 				return;
 			}
 			//符合 元件SemiCircularRadialMenu is unclocked
@@ -221,10 +229,7 @@ public class MainActivity extends Activity {
 	
 	private Button.OnClickListener logout_listener = new Button.OnClickListener() {
 		public void onClick(View v) {
-			if(mMenu.isOpened()){
-				//Toast.makeText(MainActivity.this, "不能回去", Toast.LENGTH_SHORT).show();
-			}
-			else {
+				mMenu.dismissMenu();
 				mMenu.set_Locked();
 				logout_button.setEnabled(false);
 				login_button.setEnabled(true);
@@ -235,18 +240,32 @@ public class MainActivity extends Activity {
 				fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
-			}		
 		}
 	};
 	
-	private void showDialog() {	
+	private void showSeatingChartDialog() {	
 		String[] seat_kind = new String[]{"一般座位表","亂數座位表"}; 	
 		AlertDialog.Builder MyAlertDialog = new AlertDialog.Builder(this);
 		MyAlertDialog.setTitle(R.string.seat_string);
-		MyAlertDialog.setIcon(android.R.drawable.ic_dialog_info);
+		MyAlertDialog.setIcon(android.R.drawable.btn_star_big_on);
 		MyAlertDialog.setSingleChoiceItems(seat_kind, 0, seat_Listener);
 		MyAlertDialog.setNegativeButton("確定", seat_Listener);
 		MyAlertDialog.setPositiveButton("取消", seat_Listener);
+		MyAlertDialog.create().show();			
+	}
+	
+	private void showGetOutDialog() {		
+		AlertDialog.Builder MyAlertDialog = new AlertDialog.Builder(this);
+		MyAlertDialog.setTitle(R.string.getout_string);
+		MyAlertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+		MyAlertDialog.setMessage("帳密輸入有誤，請重新確認後再行登入！");
+		MyAlertDialog.setNegativeButton("確認", new DialogInterface.OnClickListener() {	
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
 		MyAlertDialog.create().show();			
 	}
 	
@@ -300,6 +319,17 @@ public class MainActivity extends Activity {
         public int getIndex() {  
             return index;  
         }  
-    }  
+    }
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {//按返回鍵的話
+		// TODO Auto-generated method stub
+		
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			if(mMenu.isOpened())
+				mMenu.dismissMenu();
+		}
+		return super.onKeyDown(keyCode, event);
+	}  
 
 }
