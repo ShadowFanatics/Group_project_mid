@@ -3,25 +3,24 @@ package com.example.group_projectmid;
 
 
 import com.inin.dataType.userData;
-
 import com.example.chart.ChartActivity;
 import com.example.chart.TableActivity;
 import com.example.group_projectmid.R.layout;
 import com.group.mid.ScanActivity;
 import com.main.fragment.fragment_login;
 import com.main.fragment.fragment_logout;
-
 import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenu;
 import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenuItem;
 import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenuItem.OnSemiCircularRadialMenuPressed;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -213,10 +212,7 @@ public class MainActivity extends Activity {
 	
 	private Button.OnClickListener logout_listener = new Button.OnClickListener() {
 		public void onClick(View v) {
-			if(mMenu.isOpened()){
-				//Toast.makeText(MainActivity.this, "不能回去", Toast.LENGTH_SHORT).show();
-			}
-			else {
+				mMenu.dismissMenu();
 				mMenu.set_Locked();
 				logout_button.setEnabled(false);
 				login_button.setEnabled(true);
@@ -227,7 +223,6 @@ public class MainActivity extends Activity {
 				fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
-			}		
 		}
 	};
 	
@@ -295,6 +290,17 @@ public class MainActivity extends Activity {
         public int getIndex() {  
             return index;  
         }  
-    }  
+    }
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {//按返回鍵的話
+		// TODO Auto-generated method stub
+		
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			if(mMenu.isOpened())
+				mMenu.dismissMenu();
+		}
+		return super.onKeyDown(keyCode, event);
+	}  
 
 }
