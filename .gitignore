@@ -45,3 +45,4 @@ Temporary Items
 assets/
 bin/
 gen/
+bin/classes.dex
