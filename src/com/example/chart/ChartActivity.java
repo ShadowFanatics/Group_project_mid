@@ -2,6 +2,7 @@ package com.example.chart;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.example.group_projectmid.R;
 
 import org.achartengine.ChartFactory;
@@ -21,14 +22,14 @@ public class ChartActivity extends Activity {
 		setContentView(R.layout.activity_chart);
 		
 		String title = "TeacherChart", xTitle = "Date", yTitle = "Attendtion";
-		String lineTitle = "�X�u�v"; // �w�q��u���W��
+		String lineTitle = "出席率"; // 定義折線的名稱
 		int color = Color.GREEN, axesColor = Color.BLACK;
-		PointStyle style = PointStyle.DIAMOND; // ��u�I���Ϊ�
+		PointStyle style = PointStyle.DIAMOND; // 折線點的形狀
 		boolean fill = true;
 		
-		List<double[]> x = new ArrayList<double[]>(); // �I��x����
-		List<double[]> y = new ArrayList<double[]>(); // �I��y����
-		// �ƭ�X,Y���Эȿ�J
+		List<double[]> x = new ArrayList<double[]>(); // 點的x坐標
+		List<double[]> y = new ArrayList<double[]>(); // 點的y坐標
+		// 數值X,Y坐標值輸入
 		x.add(new double[] { 1, 2, 3, 4, 5, 6 });
 		y.add(new double[] { 3, 14, 8, 13, 16, 18 });
 		int xMin = 0, xMax = 8, yMin = 0, yMax = 20;

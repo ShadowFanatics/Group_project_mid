@@ -21,10 +21,10 @@ public class BuildChart {
 			double xMax, List<double[]> x, double yMin, double yMax,
 			List<double[]> y, int axesColor) {
 		// TODO Auto-generated constructor stub
-		dataset = buildDatset(lineTitle, x, y); // �x�s�y�Э�
+		dataset = buildDatset(lineTitle, x, y); // 儲存座標值
 		renderer = buildRenderer(color, style, fill);
 		setChartSettings(renderer, title, xTitle, yTitle, xMin, xMax, yMin,
-				yMax, axesColor);// �w�q��u��
+				yMax, axesColor);// 定義折線圖
 	}
 	
 	public XYMultipleSeriesDataset getDataset() {
@@ -39,26 +39,26 @@ public class BuildChart {
 	private void setChartSettings(XYMultipleSeriesRenderer renderer,
 			String title, String xTitle, String yTitle, double xMin,
 			double xMax, double yMin, double yMax, int axesColor) {
-		renderer.setChartTitle(title); // ��u�ϦW��
-		renderer.setChartTitleTextSize(50); // ��u�ϦW�٦r�Τj�p
+		renderer.setChartTitle(title); // 折線圖名稱
+		renderer.setChartTitleTextSize(50); // 折線圖名稱字形大小
 		renderer.setLabelsTextSize(30);
 		renderer.setAxisTitleTextSize(25);
 		renderer.setLegendTextSize(25);
-		renderer.setXTitle(xTitle); // X�b�W��
-		renderer.setYTitle(yTitle); // Y�b�W��
-		renderer.setXAxisMin(xMin); // X�b��̤ܳp��
-		renderer.setXAxisMax(xMax); // X�b��̤ܳj��
-		renderer.setXLabelsColor(Color.BLACK); // X�b�u�C��
-		renderer.setYAxisMin(yMin); // Y�b��̤ܳp��
-		renderer.setYAxisMax(yMax); // Y�b��̤ܳj��
-		renderer.setAxesColor(axesColor); // �]�w���жb�C��
-		renderer.setYLabelsColor(0, Color.BLACK); // Y�b�u�C��
-		renderer.setLabelsColor(Color.BLACK); // �]�w�����C��
-		renderer.setMarginsColor(Color.WHITE); // �]�w�I���C��
-		renderer.setShowGrid(true); // �]�w��u
+		renderer.setXTitle(xTitle); // X軸名稱
+		renderer.setYTitle(yTitle); // Y軸名稱
+		renderer.setXAxisMin(xMin); // X軸顯示最小值
+		renderer.setXAxisMax(xMax); // X軸顯示最大值
+		renderer.setXLabelsColor(Color.BLACK); // X軸線顏色
+		renderer.setYAxisMin(yMin); // Y軸顯示最小值
+		renderer.setYAxisMax(yMax); // Y軸顯示最大值
+		renderer.setAxesColor(axesColor); // 設定坐標軸顏色
+		renderer.setYLabelsColor(0, Color.BLACK); // Y軸線顏色
+		renderer.setLabelsColor(Color.BLACK); // 設定標籤顏色
+		renderer.setMarginsColor(Color.WHITE); // 設定背景顏色
+		renderer.setShowGrid(true); // 設定格線
 	}
 
-	// �w�q��u�Ϫ��榡
+	// 定義折線圖的格式
 	private XYMultipleSeriesRenderer buildRenderer(int color, PointStyle style,
 			boolean fill) {
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
@@ -71,18 +71,18 @@ public class BuildChart {
 		return renderer;
 	}
 
-	// ��ƳB�z
+	// 資料處理
 	private XYMultipleSeriesDataset buildDatset(String lineTitle,
 			List<double[]> xValues, List<double[]> yValues) {
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 
-		// XYseries��H,�Ω󴣨�ø�s���I���X�����
-		XYSeries series = new XYSeries(lineTitle); // �̾ڨC���u���W�ٷs�W
-		double[] xV = xValues.get(0); // �����i���u�����
+		// XYseries對象,用於提供繪製的點集合的資料
+		XYSeries series = new XYSeries(lineTitle); // 依據每條線的名稱新增
+		double[] xV = xValues.get(0); // 獲取第i條線的資料
 		double[] yV = yValues.get(0);
-		int seriesLength = xV.length; // ���X���I
+		int seriesLength = xV.length; // 有幾個點
 
-		for (int k = 0; k < seriesLength; k++) // �C���u�̦��X���I
+		for (int k = 0; k < seriesLength; k++) // 每條線裡有幾個點
 		{
 			series.add(xV[k], yV[k]);
 		}
