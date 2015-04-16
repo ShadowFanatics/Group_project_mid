@@ -134,6 +134,9 @@ public class MainActivity extends Activity {
 				@Override
 				public void onMenuItemPressed() {
 					Toast.makeText(MainActivity.this, mBroadcast.getText(), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, pushBoardActivity.class);
+					startActivity(intent);
 				}
 			});
 		}
@@ -164,6 +167,9 @@ public class MainActivity extends Activity {
 				@Override
 				public void onMenuItemPressed() {
 					Toast.makeText(MainActivity.this, mBroadcast.getText(), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, pushBoardActivity.class);
+					startActivity(intent);
 				}
 			});
 		}
@@ -180,14 +186,22 @@ public class MainActivity extends Activity {
 			username = login_username.getText().toString();
 			password = login_password.getText().toString();
 			//檢查資料庫 看帳密是否吻合且判斷是學生或老師
-			//
-			//
-			//
+			int userType = DataBaseConnector.logIn(username, password);
+			if ( userType == 0 ) {
+				isTeacher = false;
+			}
+			else if ( userType == 1 ) {
+				isTeacher = true;
+			}
+			else {
+				//不符合 show個dialog要求重新輸入？
+				return;
+			}
 			//符合 元件SemiCircularRadialMenu is unclocked
 			mMenu.set_unLocked();
 			logout_button.setEnabled(true);
 			login_button.setEnabled(false);
-			//不符合 show個dialog要求重新輸入？
+			
 			
 			//判斷完學生 老師身份後 選擇註冊和重新修改部分itemIcon
 			SemiCircularRadialItem_setPressed();
@@ -195,7 +209,7 @@ public class MainActivity extends Activity {
 			
 			fragmentTransaction = getFragmentManager().beginTransaction();
 			Bundle args = new Bundle();
-			args.putString("username", username);
+			args.putString("username", DataBaseConnector.getUserData().name);
 			frLogout.setArguments(args);
 			
 			fragmentTransaction.replace(R.id.frameLay, frLogout);
@@ -246,9 +260,6 @@ public class MainActivity extends Activity {
         
         @Override  
         public void onClick(DialogInterface dialogInterface, int which) {  
-            
-        	
-        	
             if(which >= 0){
             	index = which;
             }
