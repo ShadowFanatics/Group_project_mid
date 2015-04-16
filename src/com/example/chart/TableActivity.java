@@ -18,7 +18,6 @@ import com.example.chart.TableAdapter.TableRow;
 import com.inin.dataType.rollCallFormat;
 
 public class TableActivity extends Activity {
-	
 	ListView lv;
 	
 	@Override
