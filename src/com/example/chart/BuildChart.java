@@ -40,10 +40,10 @@ public class BuildChart {
 			String title, String xTitle, String yTitle, double xMin,
 			double xMax, double yMin, double yMax, int axesColor) {
 		renderer.setChartTitle(title); // 折線圖名稱
-		renderer.setChartTitleTextSize(50); // 折線圖名稱字形大小
-		renderer.setLabelsTextSize(30);
-		renderer.setAxisTitleTextSize(25);
-		renderer.setLegendTextSize(25);
+		renderer.setChartTitleTextSize(30); // 折線圖名稱字形大小
+		renderer.setLabelsTextSize(20);
+		renderer.setAxisTitleTextSize(20);
+		renderer.setLegendTextSize(20);
 		renderer.setXTitle(xTitle); // X軸名稱
 		renderer.setYTitle(yTitle); // Y軸名稱
 		renderer.setXAxisMin(xMin); // X軸顯示最小值
