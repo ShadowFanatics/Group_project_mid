@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.example.group_projectmid.DataBaseConnector;
 import com.example.group_projectmid.R;
 
 import android.app.Activity;
@@ -22,20 +23,6 @@ public class ScanActivity extends Activity
 	
 	private GlobalVariable globalVariable;
 	private ArrayList<StudentData> studentList;
-	//假資料
-	private int[] positions = {
-			0,1,2,3,4,5,6,7
-	};
-	private String[] names = new String[]{
-			"三個字","林岳霖","inin","余達明","A-lin","Yui","Yuki","Alice"
-	};
-	private String[] studentID = new String[]{
-			"100502529","100502531","100502521","100502068",
-			"100503456","100504567","100505678","100506789"
-	};
-	private int[] genderID = new int[]{//男生1女生0
-			1,1,1,1,0,0,0,0
-	};
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +54,8 @@ public class ScanActivity extends Activity
     		result.setText(idNumber);
     		
     		boolean isFound = false;
-    		for (int i = 0; i < studentID.length; i++) {
-				if (idNumber.equals(studentID[i])) {
+    		for (int i = 0; i < studentList.size(); i++) {
+				if (idNumber.equals(studentList.get(i).getStudentID())) {
 					isFound = true;
 					break;
 				}
@@ -101,12 +88,9 @@ public class ScanActivity extends Activity
         studentList = new ArrayList<StudentData>();
         
         // TODO 從資料庫讀取學生資料
-        
-        //假資料
-        StudentData studentData;
-        for (int i = 0; i < 8; i++) {
-        	studentData = new StudentData(positions[i], names[i], studentID[i], genderID[i]);
-        	studentList.add(studentData);
+        StudentData studentData[] = DataBaseConnector.getSeats();
+        for (int i = 0; i < studentData.length; i++) {
+        	studentList.add(studentData[i]);
 		}
         
         //接收來自RegisterActivity的資訊

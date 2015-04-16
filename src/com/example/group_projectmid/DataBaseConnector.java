@@ -18,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.group.mid.StudentData;
 import com.inin.dataType.postDataFormat;
 import com.inin.dataType.userData;
 
@@ -128,6 +129,55 @@ public class DataBaseConnector {
 		return value;
 	}
 
+	public static StudentData[] getSeats() {
+		StudentData value[] = null;
+		String result = "";
+		if (DeBugMode) {
+			value = new StudentData[8];
+            for(int i = 0; i < 8; i++) {
+                value[i] = new StudentData(i, "inin" + String.valueOf(i), "10050252" + String.valueOf(i), 1);
+            }
+			return value;
+		} 
+		try {
+			HttpClient httpClient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(
+					"http://10.0.2.2/android_sql/getSeat.php");
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("classId", String.valueOf(1)));
+			httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+			HttpResponse httpResponse = httpClient.execute(httpPost);
+
+			HttpEntity httpEntity = httpResponse.getEntity();
+			InputStream inputStream = httpEntity.getContent();
+
+			BufferedReader bufReader = new BufferedReader(
+					new InputStreamReader(inputStream, "utf-8"), 8);
+			StringBuilder builder = new StringBuilder();
+			String line = null;
+			while ((line = bufReader.readLine()) != null) {
+				builder.append(line + "\n");
+			}
+			inputStream.close();
+			result = builder.toString();
+		} catch (Exception e) {
+			Log.e("log_tag_DB", e.toString());
+		}
+		
+		try {
+			JSONArray jsonArray = new JSONArray(result);
+			value = new StudentData[jsonArray.length()];
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonData = jsonArray.getJSONObject(i);
+                value[i] = new StudentData(jsonData.getInt("seat"), jsonData.getString("name"), jsonData.getString("school_id"), jsonData.getInt("gender"));
+            }
+		} catch (JSONException e) {
+			Log.e("JSONObject", e.toString());
+		}
+
+		return value;
+	}
+	
 	public static userData getUserData() {
 		if (DeBugMode) {
 			user.ID = "100502521";
