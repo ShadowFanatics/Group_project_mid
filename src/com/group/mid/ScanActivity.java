@@ -2,12 +2,15 @@ package com.group.mid;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.example.group_projectmid.DataBaseConnector;
 import com.example.group_projectmid.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -72,6 +75,7 @@ public class ScanActivity extends Activity
 			}
     		else {
     			result.setText("你沒有修這堂課");
+    			showGetOutDialog();
 			}
     	}
     	else{
@@ -111,4 +115,19 @@ public class ScanActivity extends Activity
         // TODO 看要不要"另外存"一個亂數座位到資料庫
         
     }
+    
+	private void showGetOutDialog() {		
+		AlertDialog.Builder MyAlertDialog = new AlertDialog.Builder(this);
+		MyAlertDialog.setTitle(R.string.getout_string);
+		MyAlertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+		MyAlertDialog.setMessage("同協你沒修這堂課喔～");
+		MyAlertDialog.setNegativeButton("對不起", new DialogInterface.OnClickListener() {	
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
+		MyAlertDialog.create().show();			
+	}
 }

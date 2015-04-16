@@ -101,7 +101,7 @@ public class MainActivity extends Activity {
 			mRegistration.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
 				@Override
 				public void onMenuItemPressed() {
-					showDialog();
+					showSeatingChartDialog();
 				}
 			});
 			
@@ -200,6 +200,9 @@ public class MainActivity extends Activity {
 			}
 			else {
 				//不符合 show個dialog要求重新輸入？
+				showGetOutDialog();
+				login_username.setText("");
+				login_password.setText("");		
 				return;
 			}
 			//符合 元件SemiCircularRadialMenu is unclocked
@@ -240,14 +243,29 @@ public class MainActivity extends Activity {
 		}
 	};
 	
-	private void showDialog() {	
+	private void showSeatingChartDialog() {	
 		String[] seat_kind = new String[]{"一般座位表","亂數座位表"}; 	
 		AlertDialog.Builder MyAlertDialog = new AlertDialog.Builder(this);
 		MyAlertDialog.setTitle(R.string.seat_string);
-		MyAlertDialog.setIcon(android.R.drawable.ic_dialog_info);
+		MyAlertDialog.setIcon(android.R.drawable.btn_star_big_on);
 		MyAlertDialog.setSingleChoiceItems(seat_kind, 0, seat_Listener);
 		MyAlertDialog.setNegativeButton("確定", seat_Listener);
 		MyAlertDialog.setPositiveButton("取消", seat_Listener);
+		MyAlertDialog.create().show();			
+	}
+	
+	private void showGetOutDialog() {		
+		AlertDialog.Builder MyAlertDialog = new AlertDialog.Builder(this);
+		MyAlertDialog.setTitle(R.string.getout_string);
+		MyAlertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+		MyAlertDialog.setMessage("帳密輸入有誤，請重新確認後再行登入！");
+		MyAlertDialog.setNegativeButton("確認", new DialogInterface.OnClickListener() {	
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
 		MyAlertDialog.create().show();			
 	}
 	
