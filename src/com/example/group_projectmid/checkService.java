@@ -50,7 +50,11 @@ public class checkService extends Service {
 	private Runnable showTime = new Runnable() {
 		public void run() {
 			// log目前時間
+<<<<<<< HEAD
 			//Log.e("time:", new Date().toString());
+=======
+			Log.e("time:", new Date().toString());
+>>>>>>> origin/panda
 			handler.postDelayed(this, 1000);
 
 			postDataFormat messages[] = DataBaseConnector.getPosts();

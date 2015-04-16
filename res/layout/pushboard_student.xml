@@ -8,10 +8,15 @@
         android:id="@+id/post_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+<<<<<<< HEAD
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical" />
 
     <TextVeiw>
     </TextVeiw>
+=======
+        android:scrollbars="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true" />
+>>>>>>> origin/panda
 
 </LinearLayout>

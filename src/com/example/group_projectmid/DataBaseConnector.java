@@ -83,6 +83,7 @@ public class DataBaseConnector {
 
 	public static postDataFormat[] getPosts() {
 		postDataFormat value[] = null;
+<<<<<<< HEAD
 		if ( DeBugMode ) {
 			value = new postDataFormat[5];
 			for ( int i = 0; i < 5; i++ ) {
@@ -96,6 +97,8 @@ public class DataBaseConnector {
 			}
 			return value;
 		}
+=======
+>>>>>>> origin/panda
 		String result = "";
 		try {
 			HttpClient httpClient = new DefaultHttpClient();
@@ -187,15 +190,27 @@ public class DataBaseConnector {
 		} catch (JSONException e) {
 			Log.e("JSONObject", e.toString());
 		}
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/panda
 		return value;
 	}
 	
 	public static userData getUserData() {
+<<<<<<< HEAD
 		/*if (DeBugMode) {
 			user.ID = "100502521";
 			user.name = "陳映亦";
 			user.type = 1;
 		}*/
+=======
+		if (DeBugMode) {
+			user.ID = "100502521";
+			user.name = "陳映亦";
+			user.type = 0;
+		}
+>>>>>>> origin/panda
 		return user;
 	}
 

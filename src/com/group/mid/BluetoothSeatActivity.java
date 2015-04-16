@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.renderscript.Int2;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,13 +18,14 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class SeatActivity extends Activity {
+public class BluetoothSeatActivity extends Activity {
 	
 	private GridView gridView;
 	private ImageButton backButton;
 	private String[] names;
 	private int[] genderID;
 	private String[] studentID;
+	private int[] positionID;
 	private int display_width, display_height, column;
 	
 	private GlobalVariable globalVariable;
@@ -36,7 +38,7 @@ public class SeatActivity extends Activity {
 		
 		//接收來自scan的資訊
 		Bundle bundle = getIntent().getExtras();
-		String receivedID = bundle.getString("id");
+		String receivedSeat[] = bundle.getStringArray("seat");
 		//test
 		//String receivedID = "100502531";
 		
@@ -54,7 +56,7 @@ public class SeatActivity extends Activity {
 		
 		gridView = (GridView) findViewById(R.id.GridLayout1);
 		gridView.setNumColumns(column);//改行數
-		GridItemAdapter adapter = new GridItemAdapter(names, genderID, studentID, receivedID, display_width, display_height, column, this);
+		BluetoothGridItemAdapter adapter = new BluetoothGridItemAdapter(names, genderID, studentID, receivedSeat, display_width, display_height, column, this);
 		gridView.setAdapter(adapter);
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -62,7 +64,7 @@ public class SeatActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				Toast.makeText(SeatActivity.this, "item:" + (position+1), Toast.LENGTH_SHORT).show();
+				Toast.makeText(BluetoothSeatActivity.this, "item:" + (position+1), Toast.LENGTH_SHORT).show();
 				
 			}
 		});
@@ -77,14 +79,12 @@ public class SeatActivity extends Activity {
 		names = new String[studentList.size()];
 		genderID = new int[studentList.size()];
 		studentID = new String[studentList.size()];
+		//positionID = new int[studentList.size()];
 		for (int i = 0; i < studentList.size(); i++) {
 			names[i] = studentList.get(i).getName();
 			genderID[i] = studentList.get(i).getGenderId();
 			studentID[i] = studentList.get(i).getStudentID();
-<<<<<<< HEAD
-			
-=======
->>>>>>> origin/panda
+			//positionID[i] = studentList.set(i).getPosition();
 		}
 	}
 	
@@ -92,7 +92,7 @@ public class SeatActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			SeatActivity.this.finish();
+			BluetoothSeatActivity.this.finish();
 		}
 	};
 }

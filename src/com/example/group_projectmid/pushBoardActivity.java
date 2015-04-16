@@ -19,7 +19,10 @@ import android.os.StrictMode;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ArrayAdapter;
+<<<<<<< HEAD
 import android.widget.Button;
+=======
+>>>>>>> origin/panda
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TableLayout;
@@ -32,7 +35,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+<<<<<<< HEAD
 import android.view.View.OnClickListener;
+=======
+>>>>>>> origin/panda
 import android.view.ViewGroup.LayoutParams;
 
 public class pushBoardActivity extends ListActivity {
@@ -45,7 +51,11 @@ public class pushBoardActivity extends ListActivity {
 	private boolean shouldLoadData = true, isLoadingData = false;
 	ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 	private SimpleAdapter listAdapter;
+<<<<<<< HEAD
 	private View head, foot, teacher;
+=======
+	private View head, foot;
+>>>>>>> origin/panda
 
 	// private MydataAdapter mydataAdapter;
 
@@ -75,7 +85,11 @@ public class pushBoardActivity extends ListActivity {
 				LayoutParams.WRAP_CONTENT);
 		view_layout = new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> origin/panda
 		head = LayoutInflater.from(this).inflate(R.layout.pushboard_refresh,
 				null);
 		foot = LayoutInflater.from(this).inflate(R.layout.pushboard_load, null);
@@ -86,6 +100,7 @@ public class pushBoardActivity extends ListActivity {
 		user_list.addHeaderView(head, null, false);
 		user_list.addFooterView(foot, null, false);
 		foot.setVisibility(View.GONE);
+<<<<<<< HEAD
 		
 		if (DataBaseConnector.getUserData().type == 1) {
 			Log.e("teacher","true");
@@ -96,6 +111,9 @@ public class pushBoardActivity extends ListActivity {
 			user_list.addHeaderView(teacher, null, false);
 		}
 		
+=======
+
+>>>>>>> origin/panda
 		listAdapter = new SimpleAdapter(this, list, R.layout.pushboard_item,
 				new String[] { "title", "message", "date", "time", "teacher" },
 				new int[] { R.id.postTitle, R.id.postMessage, R.id.postDate,
@@ -186,6 +204,7 @@ public class pushBoardActivity extends ListActivity {
 			user_list.setAdapter(listAdapter);
 		}
 	}
+<<<<<<< HEAD
 	
 	private OnClickListener postMessage = new OnClickListener() {
 		public void onClick(View v) {
@@ -194,6 +213,9 @@ public class pushBoardActivity extends ListActivity {
 		}
 	};
 	
+=======
+
+>>>>>>> origin/panda
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
