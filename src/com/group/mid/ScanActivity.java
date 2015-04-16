@@ -13,9 +13,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ public class ScanActivity extends Activity
 {
 	Button scan;
 	TextView result;
+	private Button exitButton;
 	
 	private GlobalVariable globalVariable;
 	private ArrayList<StudentData> studentList;
@@ -34,6 +37,7 @@ public class ScanActivity extends Activity
         
         scan = (Button)findViewById(R.id.scan);
         result = (TextView)findViewById(R.id.result);
+        exitButton = (Button) findViewById(R.id.button_exit);
         
         scan.setOnClickListener(new OnClickListener() {
 			
@@ -42,6 +46,15 @@ public class ScanActivity extends Activity
 				IntentIntegrator scanIntegrator = new IntentIntegrator(ScanActivity.this);
 				
 				scanIntegrator.initiateScan(scanIntegrator.ONE_D_CODE_TYPES, 1);
+			}
+		});
+        
+        //結束簽到的按鈕
+        exitButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				ScanActivity.this.finish();
 			}
 		});
         
@@ -54,7 +67,6 @@ public class ScanActivity extends Activity
     	if (scanningResult != null) {
     		String resultString = scanningResult.getContents();
     		String idNumber = resultString.substring(0, resultString.length()-1);
-    		result.setText(idNumber);
     		
     		boolean isFound = false;
     		for (int i = 0; i < studentList.size(); i++) {
@@ -65,6 +77,7 @@ public class ScanActivity extends Activity
 			}
     		
     		if (isFound) {
+    			result.setText(idNumber+" 已經完成簽到");
     			//將掃描回傳的id值再傳給SeatActivity
         		Bundle bundle = new Bundle();
         		bundle.putString("id", idNumber);

@@ -8,5 +8,7 @@
     <string name="getout_string">警告</string>
     <string name="title_activity_chart">全體學生出席數表</string>
     <string name="title_activity_table">學生出席日表</string>
-
+	<string name="info">幫助資訊</string>
+    <string name="info_teacher">1.簽到功能\n\t點選簽到功能可以選擇固定座位或亂數座位\n\t選擇完畢就可以讓學生開始簽到\n\n2.點名功能\n\t點選點名功能將會自動取得出席資訊並呈現出來\n\n3.出席紀錄\n\t點選出席紀錄將會顯示每次上課出席率的統計圖表\n\n4.推播功能\n\t點選推播功能可以對所有學生傳送推播資訊</string>
+    <string name="info_student">1.出席紀錄\n\t點選出席紀錄將會顯示您每次上課的簽到與點名資訊\n\n2.推播功能\n\t點選推播功能將會顯示已接收的推播資訊</string>
 </resources>

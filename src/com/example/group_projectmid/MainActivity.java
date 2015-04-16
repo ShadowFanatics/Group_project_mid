@@ -122,7 +122,8 @@ public class MainActivity extends Activity {
 			mInfo.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
 				@Override
 				public void onMenuItemPressed() {
-					Toast.makeText(MainActivity.this, mInfo.getText(), Toast.LENGTH_SHORT).show();
+					//Toast.makeText(MainActivity.this, mInfo.getText(), Toast.LENGTH_SHORT).show();
+					showTeacherInfoDialog();
 				}
 			});
 			
@@ -157,7 +158,8 @@ public class MainActivity extends Activity {
 			mInfo.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
 				
 				public void onMenuItemPressed() {
-					Toast.makeText(MainActivity.this, mInfo.getText(), Toast.LENGTH_SHORT).show();
+					//Toast.makeText(MainActivity.this, mInfo.getText(), Toast.LENGTH_SHORT).show();
+					showStudentInfoDialog();
 				}
 			});
 			
@@ -273,6 +275,36 @@ public class MainActivity extends Activity {
 			}
 		});
 		MyAlertDialog.create().show();			
+	}
+	
+	private void showTeacherInfoDialog()
+	{
+		new AlertDialog.Builder(MainActivity.this)
+		.setTitle(R.string.info)
+		.setMessage(R.string.info_teacher)
+		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+			}
+		})
+		.show();
+	}
+		
+	private void showStudentInfoDialog()
+	{
+		new AlertDialog.Builder(MainActivity.this)
+		.setTitle(R.string.info)
+		.setMessage(R.string.info_student)
+		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+			}
+		})
+		.show();
 	}
 	
 	private class ChoiceOnClickListener implements DialogInterface.OnClickListener {  

@@ -29,7 +29,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class DataBaseConnector {
-	private static boolean DeBugMode = false;
+	private static boolean DeBugMode = true;
 	private static userData user = new userData();
 
 	public static int logIn(String account, String password) {
