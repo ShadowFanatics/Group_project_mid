@@ -59,7 +59,7 @@ public class TableAdapter extends BaseAdapter {
 					TextView textCell = new TextView(context);
 					textCell.setLines(1);
 					textCell.setGravity(Gravity.CENTER);
-					textCell.setBackgroundColor(Color.BLACK); // 背景黑色
+					textCell.setBackgroundColor(Color.WHITE); // 背景黑色
 					textCell.setText(String.valueOf(tableCell.value));
 					addView(textCell, layoutParams);
 				} else if (tableCell.type == TableCell.IMAGE) { // 如果格單元是圖像内容
@@ -69,7 +69,7 @@ public class TableAdapter extends BaseAdapter {
 					addView(imgCell, layoutParams);
 				}
 			}
-			this.setBackgroundColor(Color.WHITE); // 背景白色，利用空隙來實現邊框
+			this.setBackgroundColor(Color.BLACK); // 背景白色，利用空隙來實現邊框
 		}
 	}
 

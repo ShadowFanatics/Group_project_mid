@@ -103,6 +103,9 @@ public class MainActivity extends Activity {
 	public void SemiCircularRadialItem_setPressed(){//變換Activity在這邊
 		
 		if(isTeacher){//老師所有功能都能做
+			mRegistration.reset_Drawble(getResources().getDrawable(R.drawable.ic_registration));
+			mRollCall.reset_Drawble(getResources().getDrawable(R.drawable.ic_rollcall));
+			
 			//簽到
 			mRegistration.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
 				@Override

@@ -34,9 +34,16 @@ public class DataBaseConnector {
 
 	public static int logIn(String account, String password) {
 		if (DeBugMode) {
-			user.ID = "100502531";
-			user.name = "陳映亦";
-			user.type = 1;
+			if ( account.equals("100502521")) {
+				user.ID = "100502521";
+				user.name = "陳映亦";
+				user.type = 0;
+			}
+			else {
+				user.ID = "1";
+				user.name = "陳國棟";
+				user.type = 1;
+			}
 			// -1 is error
 			// 0 is student
 			// 1 is teacher
