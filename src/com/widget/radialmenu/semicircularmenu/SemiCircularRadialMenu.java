@@ -495,6 +495,10 @@ public class SemiCircularRadialMenu extends View {
 		Locked = true;
 	}
 	
-	
+	public boolean isOpened(){
+		if(centerMenuText.equals("Open"))
+			return false;
+		else return true;
+	}
 	
 }

@@ -41,7 +41,8 @@ public class SemiCircularRadialMenuItem {
 		mPath = new Path();
 		mBounds = new RectF();
 	}
-		
+	
+	
 	/**
 	 * @return the mTextColor
 	 */
@@ -185,5 +186,9 @@ public class SemiCircularRadialMenuItem {
 	 */
 	public void setMenuSelectedColor(int mMenuSelectedColor) {
 		this.mMenuSelectedColor = mMenuSelectedColor;
+	}
+	
+	public void reset_Drawble(Drawable mIcon){
+		this.mIcon = mIcon;
 	}
 }

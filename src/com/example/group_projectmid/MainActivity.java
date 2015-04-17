@@ -1,5 +1,12 @@
 package com.example.group_projectmid;
 
+
+
+import com.inin.dataType.userData;
+import com.example.chart.ChartActivity;
+import com.example.chart.TableActivity;
+import com.example.group_projectmid.R.layout;
+import com.group.mid.ScanActivity;
 import com.main.fragment.fragment_login;
 import com.main.fragment.fragment_logout;
 import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenu;
@@ -7,37 +14,54 @@ import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenuItem;
 import com.widget.radialmenu.semicircularmenu.SemiCircularRadialMenuItem.OnSemiCircularRadialMenuPressed;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity{
+
+public class MainActivity extends Activity {
+
 	
 	private SemiCircularRadialMenu mMenu;
-	private SemiCircularRadialMenuItem mContact, mDislike, mInfo, mRefresh, mSearch;
+	private SemiCircularRadialMenuItem mRegistration, mRollCall, mInfo, mAttendance, mBroadcast;
 	private Button login_button, logout_button;
+	private LinearLayout layout;
 	private fragment_login frLogin;
 	private fragment_logout frLogout;
 	private String username,password;
-	//private FragmentManager fragmentManager = getFragmentManager();
 	private FragmentTransaction fragmentTransaction;
+	//調用seat_Listener.getIndex 可以得到座位選擇 0是一般座位 1是亂數座位
+	private ChoiceOnClickListener seat_Listener= new ChoiceOnClickListener(1);
+	////////////////////////////////////////////////////////////////////////////////////////
+	private boolean isTeacher = true;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		layout = (LinearLayout) findViewById(R.id.main_layout);
+		layout.setBackground(this.getResources().getDrawable(R.drawable.background));
 		
-		
-		
-		
+		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+			.detectDiskReads().detectDiskWrites().detectNetwork()
+			.penaltyLog().build());
+		StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+			.detectLeakedSqlLiteObjects().penaltyLog().penaltyDeath()
+			.build());
 
 		
 		
@@ -62,57 +86,114 @@ public class MainActivity extends Activity{
 	}
 	
 	public void iniSemiCircularRadialMenu() {
-		mContact = new SemiCircularRadialMenuItem("Contact", getResources().getDrawable(R.drawable.ic_action_camera), "簽到");
-		mDislike = new SemiCircularRadialMenuItem("Dislike", getResources().getDrawable(R.drawable.ic_action_dislike), "點名");
-		mInfo = new SemiCircularRadialMenuItem("info", getResources().getDrawable(R.drawable.ic_action_info), "Info");
-		mRefresh = new SemiCircularRadialMenuItem("Refresh", getResources().getDrawable(R.drawable.ic_action_refresh), "出席率");
-		mSearch = new SemiCircularRadialMenuItem("Search", getResources().getDrawable(R.drawable.ic_action_search), "推播");
+		mRegistration = new SemiCircularRadialMenuItem("Registration", getResources().getDrawable(R.drawable.ic_registration), "簽到");
+		mRollCall = new SemiCircularRadialMenuItem("RollCall", getResources().getDrawable(R.drawable.ic_rollcall), "點名");
+		mInfo = new SemiCircularRadialMenuItem("info", getResources().getDrawable(R.drawable.ic_info), "Info");
+		mAttendance = new SemiCircularRadialMenuItem("Attendance", getResources().getDrawable(R.drawable.ic_attendence), "出席率");
+		mBroadcast = new SemiCircularRadialMenuItem("Broadcast", getResources().getDrawable(R.drawable.ic_broadcast), "推播");
 		
 		mMenu = (SemiCircularRadialMenu) findViewById(R.id.radial_menu);
-		mMenu.addMenuItem(mInfo.getMenuID(), mInfo);//最左
-		mMenu.addMenuItem(mSearch.getMenuID(), mSearch);//最右
-		mMenu.addMenuItem(mContact.getMenuID(), mContact);//中間
-		mMenu.addMenuItem(mRefresh.getMenuID(), mRefresh);//右2
-		mMenu.addMenuItem(mDislike.getMenuID(), mDislike);//左2
-		
-		mContact.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
-			@Override
-			public void onMenuItemPressed() {
-				Toast.makeText(MainActivity.this, mContact.getText(), Toast.LENGTH_SHORT).show();
-			}
-		});
-		/*
-		mDislike.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
-			@Override
-			public void onMenuItemPressed() {
-				Toast.makeText(MainActivity.this, mDislike.getText(), Toast.LENGTH_SHORT).show();
-			}
-		});
-		
-		mInfo.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
-			@Override
-			public void onMenuItemPressed() {
-				Toast.makeText(MainActivity.this, mInfo.getText(), Toast.LENGTH_SHORT).show();
-			}
-		});
-		
-		mRefresh.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
-			@Override
-			public void onMenuItemPressed() {
-				Toast.makeText(MainActivity.this, mRefresh.getText(), Toast.LENGTH_SHORT).show();
-			}
-		});
-		
-		mSearch.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
-			@Override
-			public void onMenuItemPressed() {
-				Toast.makeText(MainActivity.this, mSearch.getText(), Toast.LENGTH_SHORT).show();
-				mMenu.dismissMenu();
-			}
-		});*/
+		mMenu.addMenuItem(mBroadcast.getMenuID(), mBroadcast);
+		mMenu.addMenuItem(mInfo.getMenuID(), mInfo);
+		mMenu.addMenuItem(mRegistration.getMenuID(), mRegistration);
+		mMenu.addMenuItem(mRollCall.getMenuID(), mRollCall);
+		mMenu.addMenuItem(mAttendance.getMenuID(), mAttendance);		
 	}
+	
+	public void SemiCircularRadialItem_setPressed(){//變換Activity在這邊
+		
+		if(isTeacher){//老師所有功能都能做
+			mRegistration.reset_Drawble(getResources().getDrawable(R.drawable.ic_registration));
+			mRollCall.reset_Drawble(getResources().getDrawable(R.drawable.ic_rollcall));
+			
+			//簽到
+			mRegistration.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+				@Override
+				public void onMenuItemPressed() {
+					showSeatingChartDialog();
+				}
+			});
+			
+			//點名 藍芽activity在這邊開啟
+			mRollCall.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+				@Override
+				public void onMenuItemPressed() {
+					Toast.makeText(MainActivity.this, mRollCall.getText(), Toast.LENGTH_SHORT).show();
+				}
+			});
+			
+			mInfo.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+				@Override
+				public void onMenuItemPressed() {
+					//Toast.makeText(MainActivity.this, mInfo.getText(), Toast.LENGTH_SHORT).show();
+					showTeacherInfoDialog();
+				}
+			});
+			
+			//老師圖表activity在這邊開啟
+			//可能要傳值進去 未加入
+			mAttendance.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+				@Override
+				public void onMenuItemPressed() {
+					//Toast.makeText(MainActivity.this, mAttendance.getText(), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, ChartActivity.class);
+					startActivity(intent);
+				}
+			});
+			
+			//老師broadcast activity在這邊開啟
+			mBroadcast.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+				@Override
+				public void onMenuItemPressed() {
+					Toast.makeText(MainActivity.this, mBroadcast.getText(), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, pushBoardActivity.class);
+					startActivity(intent);
+				}
+			});
+		}
+		else{//學生只有資訊 出席率 推播
+			//改Icon
+			mRegistration.reset_Drawble(getResources().getDrawable(R.drawable.ic_registration_eneditabled));
+			mRollCall.reset_Drawble(getResources().getDrawable(R.drawable.ic_rollcall_eneditabled));
+			
+			mInfo.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+				
+				public void onMenuItemPressed() {
+					//Toast.makeText(MainActivity.this, mInfo.getText(), Toast.LENGTH_SHORT).show();
+					showStudentInfoDialog();
+				}
+			});
+			
+			//學生圖表activity在這邊開啟
+			//可能要傳值進去 未加入
+			mAttendance.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+				@Override
+				public void onMenuItemPressed() {
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, TableActivity.class);
+					startActivity(intent);
+				}
+			});
+			
+			mBroadcast.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
+				@Override
+				public void onMenuItemPressed() {
+					Toast.makeText(MainActivity.this, mBroadcast.getText(), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, pushBoardActivity.class);
+					startActivity(intent);
+				}
+			});
+		}
+	}
+	
 
-
+	public boolean isTeacher(){
+		return isTeacher;
+	}
+	
 	private Button.OnClickListener login_listener = new Button.OnClickListener() {
 		public void onClick(View v) {
 			frLogout = new fragment_logout();
@@ -121,18 +202,33 @@ public class MainActivity extends Activity{
 			username = login_username.getText().toString();
 			password = login_password.getText().toString();
 			//檢查資料庫 看帳密是否吻合且判斷是學生或老師
-			//
-			//
-			//
+			int userType = DataBaseConnector.logIn(username, password);
+			if ( userType == 0 ) {
+				isTeacher = false;
+			}
+			else if ( userType == 1 ) {
+				isTeacher = true;
+			}
+			else {
+				//不符合 show個dialog要求重新輸入？
+				showGetOutDialog();
+				login_username.setText("");
+				login_password.setText("");		
+				return;
+			}
 			//符合 元件SemiCircularRadialMenu is unclocked
 			mMenu.set_unLocked();
 			logout_button.setEnabled(true);
 			login_button.setEnabled(false);
 			
 			
+			//判斷完學生 老師身份後 選擇註冊和重新修改部分itemIcon
+			SemiCircularRadialItem_setPressed();
+			
+			
 			fragmentTransaction = getFragmentManager().beginTransaction();
 			Bundle args = new Bundle();
-			args.putString("username", username);
+			args.putString("username", DataBaseConnector.getUserData().name);
 			frLogout.setArguments(args);
 			
 			fragmentTransaction.replace(R.id.frameLay, frLogout);
@@ -144,20 +240,137 @@ public class MainActivity extends Activity{
 	
 	private Button.OnClickListener logout_listener = new Button.OnClickListener() {
 		public void onClick(View v) {
-			mMenu.set_Locked();
-			logout_button.setEnabled(false);
-			login_button.setEnabled(true);
-			
-			fragmentTransaction = getFragmentManager().beginTransaction();
-			fragmentTransaction.remove(frLogout);
-			fragmentTransaction.add(R.id.frameLay, frLogin);
-			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-			fragmentTransaction.addToBackStack(null);
-			fragmentTransaction.commit();
-			
+				mMenu.dismissMenu();
+				mMenu.set_Locked();
+				logout_button.setEnabled(false);
+				login_button.setEnabled(true);
+				
+				fragmentTransaction = getFragmentManager().beginTransaction();
+				fragmentTransaction.remove(frLogout);
+				fragmentTransaction.add(R.id.frameLay, frLogin);
+				fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+				fragmentTransaction.addToBackStack(null);
+				fragmentTransaction.commit();
 		}
 	};
 	
+	private void showSeatingChartDialog() {	
+		String[] seat_kind = new String[]{"一般座位表","亂數座位表"}; 	
+		AlertDialog.Builder MyAlertDialog = new AlertDialog.Builder(this);
+		MyAlertDialog.setTitle(R.string.seat_string);
+		MyAlertDialog.setIcon(android.R.drawable.btn_star_big_on);
+		MyAlertDialog.setSingleChoiceItems(seat_kind, 0, seat_Listener);
+		MyAlertDialog.setNegativeButton("確定", seat_Listener);
+		MyAlertDialog.setPositiveButton("取消", seat_Listener);
+		MyAlertDialog.create().show();			
+	}
 	
+	private void showGetOutDialog() {		
+		AlertDialog.Builder MyAlertDialog = new AlertDialog.Builder(this);
+		MyAlertDialog.setTitle(R.string.getout_string);
+		MyAlertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+		MyAlertDialog.setMessage("帳密輸入有誤，請重新確認後再行登入！");
+		MyAlertDialog.setNegativeButton("確認", new DialogInterface.OnClickListener() {	
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
+		MyAlertDialog.create().show();			
+	}
+	
+	private void showTeacherInfoDialog()
+	{
+		new AlertDialog.Builder(MainActivity.this)
+		.setTitle(R.string.info)
+		.setMessage(R.string.info_teacher)
+		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+			}
+		})
+		.show();
+	}
+		
+	private void showStudentInfoDialog()
+	{
+		new AlertDialog.Builder(MainActivity.this)
+		.setTitle(R.string.info)
+		.setMessage(R.string.info_student)
+		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+			}
+		})
+		.show();
+	}
+	
+	private class ChoiceOnClickListener implements DialogInterface.OnClickListener {  
+		//選擇亂數或一般座位DialogListener
+		
+        private int index;//選擇0是一般座位 1是亂數座位
+        public ChoiceOnClickListener(int index){
+        	this.index = index;
+        }
+        
+        @Override  
+        public void onClick(DialogInterface dialogInterface, int which) {  
+            if(which >= 0){
+            	index = which;
+            }
+            else {
+				if(which == DialogInterface.BUTTON_NEGATIVE){
+					//跳Activity
+					
+					switch (index) {
+					case 0:
+						Bundle bundle1 = new Bundle();
+						Intent intent1 = new Intent();
+			    		bundle1.putBoolean("isRandom", false);
+			    		intent1.putExtras(bundle1);
+			    		intent1.setClass(MainActivity.this, ScanActivity.class);
+			    		startActivity(intent1);
+						break;
+					case 1:
+						Bundle bundle2 = new Bundle();
+						Intent intent2 = new Intent();
+			    		bundle2.putBoolean("isRandom", true);
+			    		intent2.putExtras(bundle2);
+			    		intent2.setClass(MainActivity.this, ScanActivity.class);
+			    		startActivity(intent2);
+						break;	
+
+					default:
+						Toast.makeText(MainActivity.this, "Impossible!", Toast.LENGTH_SHORT).show();
+						break;
+					}
+					
+				}
+				else if(which == DialogInterface.BUTTON_POSITIVE){
+					dialogInterface.dismiss();
+				}
+			}
+        }  
+          
+        public int getIndex() {  
+            return index;  
+        }  
+    }
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {//按返回鍵的話
+		// TODO Auto-generated method stub
+		
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			if(mMenu.isOpened())
+				mMenu.dismissMenu();
+		}
+		return super.onKeyDown(keyCode, event);
+	}  
 
 }
