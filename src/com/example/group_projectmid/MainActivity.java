@@ -6,6 +6,7 @@ import com.inin.dataType.userData;
 import com.example.chart.ChartActivity;
 import com.example.chart.TableActivity;
 import com.example.group_projectmid.R.layout;
+import com.group.mid.BluetoothActivity;
 import com.group.mid.ScanActivity;
 import com.main.fragment.fragment_login;
 import com.main.fragment.fragment_logout;
@@ -118,7 +119,10 @@ public class MainActivity extends Activity {
 			mRollCall.setOnSemiCircularRadialMenuPressed(new OnSemiCircularRadialMenuPressed() {
 				@Override
 				public void onMenuItemPressed() {
-					Toast.makeText(MainActivity.this, mRollCall.getText(), Toast.LENGTH_SHORT).show();
+					//Toast.makeText(MainActivity.this, mRollCall.getText(), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, BluetoothActivity.class);
+					startActivity(intent);
 				}
 			});
 			
