@@ -213,21 +213,20 @@ public class MainActivity extends Activity {
 				login_password.setText("");		
 				return;
 			}
+			
 			//符合 元件SemiCircularRadialMenu is unclocked
 			mMenu.set_unLocked();
 			logout_button.setEnabled(true);
 			login_button.setEnabled(false);
 			
-			
 			//判斷完學生 老師身份後 選擇註冊和重新修改部分itemIcon
 			SemiCircularRadialItem_setPressed();
-			
 			
 			fragmentTransaction = getFragmentManager().beginTransaction();
 			Bundle args = new Bundle();
 			args.putString("username", DataBaseConnector.getUserData().name);
 			frLogout.setArguments(args);
-			
+
 			fragmentTransaction.replace(R.id.frameLay, frLogout);
 			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			fragmentTransaction.addToBackStack(null);
