@@ -18,6 +18,7 @@ import com.example.chart.TableAdapter.TableRow;
 import com.inin.dataType.rollCallFormat;
 
 public class TableActivity extends Activity {
+	
 	ListView lv;
 	
 	@Override
@@ -35,43 +36,35 @@ public class TableActivity extends Activity {
         
         // 定義標題  
         for (int i = 0; i < titles.length; i++) {  
-            titles[i] = new TableCell(titleStrings[i],   
+            titles[i] = new TableCell(titleStrings[i].toString(),   
                                     width + 8 * i,
                                     LayoutParams.FILL_PARENT,   
                                     TableCell.STRING);
         }
         table.add(new TableRow(titles));
+          
+        /*--------------假資料--------------*/
+        //rollCallFormat[] cellsData = new rollCallFormat[4];
+        String[] dates = {"2015/04/01", "2015/04/08", "2015/04/15", "2015/04/22"};
+        int[] types = {0, 1, 1, 0};
+        boolean[] isComes = {true, true, true, false};
+        /*--------------假資料--------------*/
         
-        // 每行的數據  
-        /*--------------假資料--------------*/
-        rollCallFormat[] cellsData = new rollCallFormat[4];
-        cellsData[0].time = "2015/04/01";
-        cellsData[1].time = "2015/04/08";
-        cellsData[2].time = "2015/04/15";
-        cellsData[3].time = "2015/04/22";
-        cellsData[0].type = 0;
-        cellsData[1].type = 1;
-        cellsData[2].type = 1;
-        cellsData[3].type = 0;
-        cellsData[0].isCome = true;
-        cellsData[1].isCome = true;
-        cellsData[2].isCome = false;
-        cellsData[3].isCome = true;
-        /*--------------假資料--------------*/
-        TableCell[] cells = new TableCell[tableColumnSize]; // 每行3個單元  
-        for (int i = 0; i < cellsData.length; i++) {
+        // 每行的數據
+        for (int i = 0; i < dates.length; i++) { // 幾行的record
+            TableCell[] cells = new TableCell[tableColumnSize]; // 每行3個單元  
         	// 日期
-        	cells[0] = new TableCell(cellsData[i].time,  
+        	cells[0] = new TableCell(dates[i],  
                     titles[0].width,   
                     LayoutParams.FILL_PARENT,   
                     TableCell.STRING);
         	// 簽到或點名
-        	cells[1] = new TableCell(cellsData[i].type,  
+        	cells[1] = new TableCell(types[i] == 0 ? "簽到" : "點名",  
                     titles[1].width,   
                     LayoutParams.FILL_PARENT,   
                     TableCell.STRING);
         	// 是否有到
-        	cells[2] = new TableCell(cellsData[i].isCome,  
+        	cells[2] = new TableCell(isComes[i] == true ? "V" : "X",  
                     titles[2].width,   
                     LayoutParams.FILL_PARENT,   
                     TableCell.STRING);
